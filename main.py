@@ -57,10 +57,10 @@ def calculate_k_connected_components_for_all_n(n_lst: List[int], p_lst, theta_l,
     for n, p in zip(n_lst, p_lst):
         k_lst_avg, histo_first = k_max_connencted_components_sizes(p, n, k)
         connected_comp_sizes = [previous + new for previous, new in zip(connected_comp_sizes, k_lst_avg)]
-        if n == n_lst[0]:
-            plot_histo(histo_first, n)
-        elif n == n_lst[-1]:
-            consolidate_histogram_ranges(histo_first)
+        # if n == n_lst[0]:
+            # plot_histo(histo_first, n)
+        # elif n == n_lst[-1]:
+            # consolidate_histogram_ranges(histo_first)
     plot_graph(n_lst, theta_l, connected_comp_sizes)
 
 
@@ -89,8 +89,6 @@ def plot_graph(n_lst: List[int], theta_l, connected_comp_sizes):
         plt.plot(n_lst, theta, label=f'theta_l{index+1} vs n', marker='o', linestyle='--')
         theta = [3 * x for x in theta]
         plt.plot(n_lst, theta, label=f'3 * theta_l{index+1} vs n', marker='o', linestyle='--')
-
-    print(theta_l)
 
     # Plot each sublist against n_lst with logarithmic x-axis
     markers = ['x', 's', '^', 'p', '*', '+']  # Example marker styles
@@ -254,8 +252,7 @@ def very_super_p_theta_2(n_lst: List[int]):
 
 # Define the range of n values you want to plot
 n_values = [10, 100, 1000, 10000, 100000, 1000000]  # Adjust this list as needed
-# cases = [very_subcritical_p_theta, barely_subcritical_p_theta, critical_window_p_theta, barely_sup_p_theta, very_super_p_theta, very_super_p_theta_2]
-cases = [very_super_p_theta_2]
+cases = [very_subcritical_p_theta, barely_subcritical_p_theta, critical_window_p_theta, barely_sup_p_theta, very_super_p_theta, very_super_p_theta_2]
 
 for case in cases:
     p_values, theta_values = case(n_values)
