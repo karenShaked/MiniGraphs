@@ -57,10 +57,10 @@ def calculate_k_connected_components_for_all_n(n_lst: List[int], p_lst, theta_l,
     for n, p in zip(n_lst, p_lst):
         k_lst_avg, histo_first = k_max_connencted_components_sizes(p, n, k)
         connected_comp_sizes = [previous + new for previous, new in zip(connected_comp_sizes, k_lst_avg)]
-        # if n == n_lst[0]:
-            # plot_histo(histo_first, n)
-        # elif n == n_lst[-1]:
-            # consolidate_histogram_ranges(histo_first)
+        if n == n_lst[0]:
+            plot_histo(histo_first, n)
+        elif n == n_lst[-1]:
+            consolidate_histogram_ranges(histo_first)
     plot_graph(n_lst, theta_l, connected_comp_sizes)
 
 
@@ -250,10 +250,31 @@ def very_super_p_theta_2(n_lst: List[int]):
     return p_lst, [l1_lst, l2_lst]
 
 
+''' 
+Very Supercritical Third Assign:
+ p = c / n
+ c > 1
+ L1 ~ yn, 1-y = e^-yc
+ c = 7, y = 0.999
+ L2 ~ ln(n) 
+'''
+
+
+def very_super_p_theta_3(n_lst: List[int]):
+    """
+    :param n_lst: all n values
+    :return: the p values of The Very Supercritical
+    """
+    p_lst = [(7/n) for n in n_lst]
+    l1_lst = [(0.999 * n) for n in n_lst]
+    l2_lst = [(math.log(n, math.e)) for n in n_lst]
+    return p_lst, [l1_lst, l2_lst]
+
+
 # Define the range of n values you want to plot
 n_values = [10, 100, 1000, 10000, 100000, 1000000]  # Adjust this list as needed
-cases = [very_subcritical_p_theta, barely_subcritical_p_theta, critical_window_p_theta, barely_sup_p_theta, very_super_p_theta, very_super_p_theta_2]
-
+# cases = [very_subcritical_p_theta, barely_subcritical_p_theta, critical_window_p_theta, barely_sup_p_theta, very_super_p_theta, very_super_p_theta_2, very_super_p_theta_3]
+cases = [very_super_p_theta_3]
 for case in cases:
     p_values, theta_values = case(n_values)
     calculate_k_connected_components_for_all_n(n_values, p_values, theta_values)
